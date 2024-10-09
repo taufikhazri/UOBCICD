@@ -17,5 +17,14 @@ jobs:
       - name: Checkout my codes
         uses: actions/checkout@v4
       - name: print content
-        run:
+        run: |
           ls
+
+      - name: Intsalling Python
+        uses: action/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: check version of python
+        run: |
+          python --version
