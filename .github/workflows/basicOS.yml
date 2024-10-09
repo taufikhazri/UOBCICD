@@ -43,8 +43,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: taufikhazri/UOBHidden
+          path: hiddenfolder
           token: ${{ secrets.SECRETUOB }}
 
       - name: print out hidden things
         run: |
+          ls
+          cd hiddenfolder
           ls
