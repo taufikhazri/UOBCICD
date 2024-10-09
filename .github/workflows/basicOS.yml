@@ -38,3 +38,13 @@ jobs:
       - name: testing with Pytest
         run: |
           pytest
+
+      - name: Checkout Hidden Repo
+        uses: action/checout@v4
+        with:
+          repository: taufikhazri/UOBHidden
+          token: ${{ secrets.SECRETUOB }}
+
+      - name: print out hidden things
+        run: |
+          ls
