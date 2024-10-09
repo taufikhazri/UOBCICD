@@ -1,1 +1,9 @@
+name: MyWorkflow file
+on:
+  push:
+    branches: [main]
 
+  jobs:
+    bbuilds:
+      runs-on: ubuntu-16.04
+    
