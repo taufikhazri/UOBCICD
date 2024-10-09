@@ -6,7 +6,7 @@ on:
 jobs:
   bbuilds:
   #create ubuntu vm
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
 
     steps:
     #first steps to say hello
