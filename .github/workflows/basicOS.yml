@@ -35,6 +35,6 @@ jobs:
           if [ -f requirements.txt]; then pip pinstall -r requirements.r=txt; fi
           pip install pytest
 
-      - name: begin test
+      - name: testing with Pytest
         run: |
           pytest
