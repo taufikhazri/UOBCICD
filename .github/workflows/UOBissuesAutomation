@@ -43,7 +43,7 @@ jobs:
     - name: Checkout Hidden Repo
       uses: actions/checkout@v4
       with:
-        repository: lowkh/UOBHidden
+        repository: taufikhazri/UOBHidden
         path: hiddenfolder
         token: ${{secrets.SECRETUOB}}
 
