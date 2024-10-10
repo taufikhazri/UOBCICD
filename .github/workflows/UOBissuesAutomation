@@ -1,10 +1,10 @@
-name: MyWorkflow file
+name: my Second workflow
 on:
-  push:
+    pull_request:
     branches: [main]
 
 jobs:
-  bbuilds:
+    builds2: 
   #create ubuntu vm
     runs-on: ubuntu-latest
 
@@ -32,3 +32,23 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt]; then pip pinstall -r requirements.r=txt; fi
+          pip install pytest-cov
+
+      - name: Testing with Pytest
+        run: |
+          pytest -v -cov --junitxml=report.xml
+
+      #access hidden repo
+      - name: Checkout Hidden Repo
+        uses: actions/checkout@v4
+        with:
+          repository: DanielGoh97/UOBHidden
+          path: hiddenfolder
+          token: ${{ secrets.SECRETUOB }}
+
+        #prints hidden file
+      - name: print out hidden things
+        run: |
+          ls
+          cd hiddenfolder
+          ls
