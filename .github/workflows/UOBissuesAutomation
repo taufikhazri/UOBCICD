@@ -1,54 +1,62 @@
-name: my Second workflow
+
+name: My Second workflow
 on:
-    pull_request:
+  pull_request:
     branches: [main]
 
 jobs:
-    builds2: 
-  #create ubuntu vm
-    runs-on: ubuntu-latest
+  builds2:
+    # create VM with ubuntu OS
+    runs-on: ubuntu-20.04
 
     steps:
-    #first steps to say hello
-      - name: greeting steps
-        run:
-          echo "Hello there"
+    # first step to say hello
+    - name: greeting steps
+      run: |
+        echo "Hello there"
+        
+    # This is where i checkout my code
+    - name: Checkout my codes
+      uses: actions/checkout@v4
+    - name: print content of repo
+      run: |
+        ls
+    # this is where i install python
+    - name: Installing Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+    - name: check version of python
+      run: |
+        python --version
+    # installing dependencies if any
+    - name: install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt]; then pip install -r requirements.txt; fi
+        pip install pytest pytest-cov
+    # begin test
+    - name: Testing with Pytest
+      run: |
+        pytest -v -cov --junitxml=report.xml
+    # this is where we access the hidden repo
+    - name: Checkout Hidden Repo
+      uses: actions/checkout@v4
+      with:
+        repository: lowkh/UOBHidden
+        path: hiddenfolder
+        token: ${{secrets.SECRETUOB}}
 
-      - name: Checkout my codes
-        uses: actions/checkout@v4
-      - name: print content
-        run: |
-          ls
-
-      - name: Installing Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-      - name: Check version of Python
-        run: |
-          python --version
-
-      - name: install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt]; then pip pinstall -r requirements.r=txt; fi
-          pip install pytest-cov
-
-      - name: Testing with Pytest
-        run: |
-          pytest -v -cov --junitxml=report.xml
-
-      #access hidden repo
-      - name: Checkout Hidden Repo
-        uses: actions/checkout@v4
-        with:
-          repository: DanielGoh97/UOBHidden
-          path: hiddenfolder
-          token: ${{ secrets.SECRETUOB }}
-
-        #prints hidden file
-      - name: print out hidden things
-        run: |
-          ls
-          cd hiddenfolder
-          ls
+    # this prints out the hidden files
+    - name: print out hidden things
+      run: |
+        ls
+        cd hiddenfolder
+        ls
+        
+    - name: Publish Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v2
+      if: always()
+      with:
+        files: |
+          *.xml
