@@ -21,6 +21,7 @@ jobs:
     - name: print content of repo
       run: |
         ls
+
     # this is where i install python
     - name: Installing Python
       uses: actions/setup-python@v5
@@ -29,6 +30,7 @@ jobs:
     - name: check version of python
       run: |
         python --version
+
     # installing dependencies if any
     - name: install dependencies
       run: |
@@ -39,11 +41,13 @@ jobs:
     - name: Testing with Pytest
       run: |
         pytest -v -cov --junitxml=report.xml
+
+    
     # this is where we access the hidden repo
     - name: Checkout Hidden Repo
       uses: actions/checkout@v4
       with:
-        repository: taufikhazri/UOBHidden
+        repository: lowkh/UOBHidden
         path: hiddenfolder
         token: ${{secrets.SECRETUOB}}
 
@@ -53,10 +57,3 @@ jobs:
         ls
         cd hiddenfolder
         ls
-        
-    - name: Publish Test Results
-      uses: EnricoMi/publish-unit-test-result-action@v2
-      if: always()
-      with:
-        files: |
-          report.xml
