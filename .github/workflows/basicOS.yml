@@ -46,6 +46,12 @@ jobs:
           path: hiddenfolder
           token: ${{ secrets.SECRETUOB }}
 
+      - name: discord
+      uses: sebastianpopp/discord-action@releases/v2
+      with:
+        webhook: ${{ secrets.DISCORDSECRET }}
+        message: ${{ github.repository }} has been successfullly deployed.
+
       - name: print out hidden things
         run: |
           ls
