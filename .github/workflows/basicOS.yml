@@ -47,7 +47,7 @@ jobs:
           token: ${{ secrets.SECRETUOB }}
 
       - name: discord
-        uses: sebastianpopp/discord-action@releases/v2
+        uses: Ilshidur/action-discord@v1.0.0
         with:
           webhook: ${{ secrets.DISCORDSECRET }}
           message: ${{ github.repository }} has been successfullly deployed.
