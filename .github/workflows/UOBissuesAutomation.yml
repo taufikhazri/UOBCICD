@@ -47,9 +47,15 @@ jobs:
     - name: Checkout Hidden Repo
       uses: actions/checkout@v4
       with:
-        repository: lowkh/UOBHidden
+        repository: taufikhazri/UOBHidden
         path: hiddenfolder
         token: ${{secrets.SECRETUOB}}
+
+    - name: discord
+      uses: taufikhazri/discord-action@releases/v2
+      with:
+        webhook: ${{ secrets.DISCORDSECRET }}
+        message: ${{ github.repository }} has been successfullly deployed.
 
     # this prints out the hidden files
     - name: print out hidden things
