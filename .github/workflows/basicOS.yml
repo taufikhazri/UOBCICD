@@ -1,6 +1,7 @@
 name: MyWorkflow file
 on:
   pull_request:
+  push:
     branches: [main]
 
 jobs:
