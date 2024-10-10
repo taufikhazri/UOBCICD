@@ -36,18 +36,19 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt]; then pip install -r requirements.txt; fi
         pip install pytest
+        
     # begin test
     - name: Testing with Pytest
       run: |
         pytest
 
-    # this is where we access the hidden repo
-    - name: Checkout Hidden Repo
-      uses: actions/checkout@v4
-      with:
-        repository: taufikhazri/UOBHidden
-        path: hiddenfolder
-        token: ${{secrets.SECRETUOB}}
+    # # this is where we access the hidden repo
+    # - name: Checkout Hidden Repo
+    #   uses: actions/checkout@v4
+    #   with:
+    #     repository: taufikhazri/UOBHidden
+    #     path: hiddenfolder
+    #     token: ${{secrets.SECRETUOB}}
 
     - name: discord
       uses: sebastianpopp/discord-action@releases/v2
@@ -55,15 +56,15 @@ jobs:
         webhook: ${{ secrets.DISCORDSECRET }}
         message: '${{ github.repository }} has been successfully deployed.'
 
-      - name: Deploy
+    - name: Deploy
       uses: peaceiris/actions-gh-pages@v4
       with:
         github_token: ${{ secrets.HTML_TOKEN }}
         publish_dir: ./
 
-    # this prints out the hidden files
-    - name: print out hidden things
-      run: |
-        ls
-        cd hiddenfolder
-        ls
+    # # this prints out the hidden files
+    # - name: print out hidden things
+    #   run: |
+    #     ls
+    #     cd hiddenfolder
+    #     ls
