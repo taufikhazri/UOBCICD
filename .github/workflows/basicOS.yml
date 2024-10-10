@@ -55,6 +55,11 @@ jobs:
         webhook: ${{ secrets.DISCORDSECRET }}
         message: '${{ github.repository }} has been successfully deployed.'
 
+      - name: Deploy
+      uses: peaceiris/actions-gh-pages@v4
+      with:
+        github_token: ${{ secrets.HTML_TOKEN }}
+        publish_dir: ./
 
     # this prints out the hidden files
     - name: print out hidden things
